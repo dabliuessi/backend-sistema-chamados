@@ -14,7 +14,11 @@ dotenv.config();
 const app = express();
 
 app.use(express.json()); // essencial para req.body
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({
+  origin: "http://localhost:5174",
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  credentials: true,
+}));
 app.use('/auth', authRoutes);
 app.use('/chamados', chamadoRoutes);
 
