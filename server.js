@@ -14,10 +14,6 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://sistema-de-chamados-b6t9.vercel.app"
-  ],
   methods: ["GET", "POST", "PATCH", "DELETE"],
   credentials: true,
 }));
