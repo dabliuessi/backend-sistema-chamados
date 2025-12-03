@@ -13,12 +13,15 @@ import './models/index.js';
 dotenv.config();
 const app = express();
 
-app.use(express.json()); // essencial para req.body
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: [
+    "http://localhost:5173",
+    "https://sistema-de-chamados-b6t9.vercel.app"
+  ],
   methods: ["GET", "POST", "PATCH", "DELETE"],
   credentials: true,
 }));
+
 app.use('/auth', authRoutes);
 app.use('/chamados', chamadoRoutes);
 
