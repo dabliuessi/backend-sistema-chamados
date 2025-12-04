@@ -13,6 +13,8 @@ import './models/index.js';
 dotenv.config();
 const app = express();
 
+app.use(express.json());
+
 app.use(cors({
   methods: ["GET", "POST", "PATCH", "DELETE"],
   credentials: true,
