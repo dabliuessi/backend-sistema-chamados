@@ -76,3 +76,33 @@ export async function excluirChamado(req, res) {
   }
   
 }
+
+export async function editarChamado(req, res) {
+  try {
+    const { id } = req.params;
+    const { titulo, descricao, prioridade, categoria } = req.body;
+
+    const chamado = await Chamado.findByPk(id);
+    if (!chamado) {
+      return res.status(404).json({ message: 'Chamado não encontrado' });
+    }
+
+    if (req.user.perfil !== 'tecnico' && chamado.id_usuario !== req.user.id) {
+      return res.status(403).json({ message: 'Acesso negado' });
+    }
+
+    chamado.titulo = titulo ?? chamado.titulo;
+    chamado.descricao = descricao ?? chamado.descricao;
+    chamado.prioridade = prioridade ?? chamado.prioridade;
+    chamado.categoria = categoria ?? chamado.categoria;
+    chamado.atualizado_em = new Date();
+
+    await chamado.save();
+
+    res.json(chamado);
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
